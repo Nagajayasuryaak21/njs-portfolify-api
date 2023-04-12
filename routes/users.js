@@ -29,8 +29,8 @@ router.post("/", async (req, res) => {
     // const hashPassword = await bcrypt.hash(req.body.password, salt);
     // const hashPassword = await bcrypt.hash(req.body.password, salt);
     const saltRounds = 10;
-    const hashedPassword = bcrypt.hashSync(password, saltRounds);
-    await new User({ ...req.body, password: hashPassword })
+    const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+    await new User({ ...req.body, password: hashedPassword })
       .save()
       .then((savedData) => {
         //res.status(201).send(savedData);

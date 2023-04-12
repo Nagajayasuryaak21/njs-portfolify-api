@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   try {
     //console.log(req);
     const dataId = req.body.userId;
-    //console.log(dataId);
+    console.log(dataId);
     await Data.findOne({user:dataId})
       .then((data) => {
         if (!data) {

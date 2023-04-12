@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     //console.log(req);
     const dataId = req.body.userId;
     //console.log(dataId);
-    Data.findOne({user:dataId})
+    await Data.findOne({user:dataId})
       .then((data) => {
         if (!data) {
           return res.status(404).send("Data not found");

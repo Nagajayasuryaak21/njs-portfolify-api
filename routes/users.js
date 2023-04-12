@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { User, validate } = require("../models/user");
 const { Data } = require("../models/data");
-const bcrypt = require("bcrypt");
-
+//const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
@@ -16,9 +16,11 @@ router.post("/", async (req, res) => {
         .status(409)
         .send({ message: "User with given email already Exist!" });
     console.log(user);
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
-
+    //const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    // const hashPassword = await bcrypt.hash(req.body.password, salt);
+    // const hashPassword = await bcrypt.hash(req.body.password, salt);
+    const saltRounds = 10;
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
     await new User({ ...req.body, password: hashPassword })
       .save()
       .then((savedData) => {

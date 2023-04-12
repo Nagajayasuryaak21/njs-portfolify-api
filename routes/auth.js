@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const { User } = require("../models/user");
 const { Data } = require("../models/data");
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 const Joi = require("joi");
 
 router.get("/",(req,res)=>{res.send("HELLO")});
@@ -17,7 +18,7 @@ router.post("/", async (req, res) => {
     if (!user)
       return res.status(401).send({ message: "Invalid Email or Password" });
     console.log(user);
-    const validPassword = await bcrypt.compare(
+    const validPassword = bcrypt.compareSync(
       req.body.password,
       user.password
     );
